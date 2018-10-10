@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 
 //Location of css files
 app.use("/public/css", express.static(__dirname + '/public/css'));
-
+  
 //Sending index.html on load
 app.get('/', function(req,res) {
   res.sendFile(__dirname + '/routes/index.html');

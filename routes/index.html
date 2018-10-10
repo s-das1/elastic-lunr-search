@@ -19,6 +19,7 @@
             <div id="search_results_section_id"></div>
         </div>
     </div>
+
     <script>
         //Gets the term being searched 
         function getSearchTerm() {
@@ -30,8 +31,8 @@
         function formApiUrl() {
             const url_aws = 'https://c19814fb3a47419f917cff32b3fd56f9.vfs.cloud9.eu-west-1.amazonaws.com/search_results/api/v1/?search=';
             const url_local = 'http://localhost:3000/search_results/api/v1/?search=';
-            const url_heroku = 'https://agile-sierra-20588.herokuapp.com/search_results/api/v1?search=';
-            return url_local + getSearchTerm();
+            const url_heroku = 'https://vast-taiga-95666.herokuapp.com/search_results/api/v1?search=';
+            return url_heroku + getSearchTerm();
         }
 
         if (getSearchTerm() != null) {
@@ -67,6 +68,7 @@
                 })
         }
     </script>
+    
 </body>
 
 </html>
