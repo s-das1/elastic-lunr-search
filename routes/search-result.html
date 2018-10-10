@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <script src="/public/js/scripts.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="search_container">
+        <h1 id="results_page_header_id"></h1>
+        <div class="search">
+            <form>
+                <div class="individual_result_section">
+                    <label class="search_result_labels">Owner</label>
+                    <input class="individual_result_boxes" type="text" id="owner_id" value="">
+                </div>
+                <div class="individual_result_section">
+                    <label class="search_result_labels">Description</label>
+                    <input class="individual_result_boxes" type="description" id="description_id" value="">
+                </div>
+                <div class="individual_result_section">
+                    <label class="search_result_labels">Status</label>
+                    <input class="individual_result_boxes" type="text" id="status_id" value="">
+                </div>
+                <div class="individual_result_section">
+                    <label class="search_result_labels">Tags</label>
+                    <input class="individual_result_boxes" type="text" id="tags_id" value="">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    if (getSearchTerm() != null) {
+
+        fetch(formApiUrl(getSearchTerm()))
+            .then(data => {
+                return data.json()
+            })
+            .then(res => {
+                if (res.length != 0) {
+                    document.getElementById('results_page_header_id').innerHTML = res[0].Asset;
+                    document.getElementById('owner_id').value = res[0].Owner;
+                    document.getElementById('description_id').value = res[0].Description;
+                    document.getElementById('status_id').value = res[0].Status;
+                    document.getElementById('tags_id').value = res[0].Tags;
+                }
+            })
+    }
+</script>
+</html>

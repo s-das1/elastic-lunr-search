@@ -82,7 +82,7 @@ p {
     color: white;
 }
 
- input {
+.search_box {
      border: none;
      color: black;
      width: 70%;
@@ -92,4 +92,27 @@ p {
      background-color: #f2f7fc;
      box-shadow: 1px 2px #BBBBBB;
      margin-right: 4px;
+}
+
+.individual_result_boxes {
+    border: none;
+    color: black;
+    width: 300%;
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+    background-color: #f2f7fc;
+    box-shadow: 1px 2px #BBBBBB;
+    margin-right: 4px;
+}
+
+.individual_result_section {
+    padding: 10px;
+}
+
+.search_result_labels {
+    font-family: 'Raleway',sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 10px;
 }
