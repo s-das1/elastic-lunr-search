@@ -1,0 +1,13 @@
+Asset,Owner,Description ,Status,Tags
+DQML,"Adrian Joseph, Sarah Wrench","Data quality platform to enable clients to view, identify, and recommend resolutions to DQ issues using multiple tailored and EY custom-made algorithms. This will  enable businesses to align with data quality regulations, identify potential new rules through detecting issues, and use algorithmic analysis to recommend solutions. ",Pilot,"Machine learning, AI, Artificial intelligence"
+Minerva,"Hamish Thomas, Jeeva Moni, Andrew Wickham",Porfolio of payments and FinCrime assets e.g. Fuzzy name matching for payments,In-development,"FinCrime, Financial crime, AI, Artificial intelligence"
+NextGen remediation,Sam Law,Next generation remediation platform,In-development,"Workflow, Pega"
+List Screening,Jeeva Moni,Secondary Screening Solution that utilising advanced analytics to prioritises KYC alerts most likely to be a true and those posing the highest risk. ,Pilot,"FinCrime, KYC, Machine learning, AI, Artificial intelligence"
+Smart Swaps,Sidharth Das,Proof of concept for a blockchain enabled equity derivatives trading platform,PoC,"Blockchain, Ethereum, Equity Derivatives, Swaps, Front office"
+Digital Passport,Martin Jones,"The Digital Passport technology platform enables the secure and traceable exchange of customer information for small and medium enterprises, through digital channels controlled by authorized users.",Pilot,"Banking, SME, FinCrime, Retail Banking"
+1check,Jeeva Moni,A one-stop microservices solution that brings together the existing FinCrime strategic solutions,In-development,"FinCrime, Platform"
+MonEYtor,Jeeva Moni,,Pilot,
+ICAT,"Rupal Thakrar, Mark Selvarajan",Industry codes assessment tool that offers a digital health check of adherence to industry codes,In-development,
+Retirement Planner,Jason Whyte,Pension draw down management ,TBC,
+JPM Doc Intelligence,"Mike Zehetmayr, Anna Fink",Data extraction and digitisation for ISDA CSA's ,Production,"OCR, ISDA CSA, IBOR"
+CoBra,"Alexandra Aurusell, Craig Pond, Courtney Redd",,In-development,
