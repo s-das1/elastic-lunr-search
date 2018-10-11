@@ -12,20 +12,28 @@
         <div class="search">
             <form>
                 <div class="individual_result_section">
+                    <label class="search_result_labels">Asset</label>
+                    <div id="asset_id" class="search_result_labels_editable" contenteditable="true"></div> 
+                </div>
+                <div class="individual_result_section">
                     <label class="search_result_labels">Owner</label>
-                    <input class="individual_result_boxes" type="text" id="owner_id" value="">
+                    <div id="owner_id" class="search_result_labels_editable" contenteditable="true"></div> 
                 </div>
                 <div class="individual_result_section">
                     <label class="search_result_labels">Description</label>
-                    <input class="individual_result_boxes" type="description" id="description_id" value="">
+                    <div id="description_id" class="search_result_labels_editable" contenteditable="true"></div>
                 </div>
                 <div class="individual_result_section">
                     <label class="search_result_labels">Status</label>
-                    <input class="individual_result_boxes" type="text" id="status_id" value="">
+                    <div id="status_id" class="search_result_labels_editable" contenteditable="true"></div>
                 </div>
                 <div class="individual_result_section">
                     <label class="search_result_labels">Tags</label>
-                    <input class="individual_result_boxes" type="text" id="tags_id" value="">
+                    <div id="tags_id" class="search_result_labels_editable" contenteditable="true"></div>
+                </div>
+                <div>
+                    <button class="button button2" type="button" id="edit_button" onclick="searchresultPage_Update()">Update</button>
+                    <button class="button button3" type="button" id="delete_button" onclick="searchresultPage_Delete()">Delete</button>
                 </div>
             </form>
         </div>
@@ -33,21 +41,7 @@
 </body>
 
 <script>
-    if (getSearchTerm() != null) {
-
-        fetch(formApiUrl(getSearchTerm()))
-            .then(data => {
-                return data.json()
-            })
-            .then(res => {
-                if (res.length != 0) {
-                    document.getElementById('results_page_header_id').innerHTML = res[0].Asset;
-                    document.getElementById('owner_id').value = res[0].Owner;
-                    document.getElementById('description_id').value = res[0].Description;
-                    document.getElementById('status_id').value = res[0].Status;
-                    document.getElementById('tags_id').value = res[0].Tags;
-                }
-            })
-    }
+    //Fetch data via API and populate the text boxes
+    searchresultPage();
 </script>
 </html>
