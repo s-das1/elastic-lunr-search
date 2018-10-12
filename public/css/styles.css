@@ -180,3 +180,22 @@ p {
     width: 720px;
     background-color: #f2f7fc;
 }
+
+.search_result_header_button {
+    display: flex;
+}
+
+.button5 {
+    background-color: #FAF9F7;
+    color: black; 
+    border: 0px solid #89ACFE;
+    font-size: 30px;
+    font-weight: 800;
+    position: absolute; 
+    right: 190px;
+}
+
+.button5:hover {
+    background-color: #89ACFE; 
+    color: white;
+}

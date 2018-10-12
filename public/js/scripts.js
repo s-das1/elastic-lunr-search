@@ -6,7 +6,7 @@ const urlObj =
         "local": "http://localhost:3000",
         "heroku":"https://vast-taiga-95666.herokuapp.com"
     };
-    return urlObj['heroku'] //This value should be set as appropriate during deployment
+    return urlObj['local'] //This value should be set as appropriate during deployment
 }
 
 function setApiUrl(apiType) {
