@@ -6,7 +6,7 @@ const urlObj =
         "local": "http://localhost:3000",
         "heroku":"https://vast-taiga-95666.herokuapp.com"
     };
-    return urlObj['local'] //This value should be set as appropriate during deployment
+    return urlObj['heroku'] //This value should be set as appropriate during deployment
 }
 
 function setApiUrl(apiType) {
@@ -132,7 +132,7 @@ function searchresultPage_Delete(){
 //Function that runs on click of the update button, either updating an item or creating a new item
 function searchresultPage_UpdateDelete(url) {
     
-    if (getSearchTerm() != 'undefined') {
+    if (getSearchTerm() != 'undefined') { //Update item
 
         fetch(formApiUrl(getSearchTerm()))
             .then(data => {
@@ -160,7 +160,7 @@ function searchresultPage_UpdateDelete(url) {
                   .then(response => alert('Successfully updated'))
                   .catch(error => alert('Request failed'));
             })
-    } else {
+    } else { //Create item
         const doc = {
             "id": Math.floor((Math.random() * 999999999999) + 1),
             "Asset": document.getElementById('asset_id').innerHTML,
