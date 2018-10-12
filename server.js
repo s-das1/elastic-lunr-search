@@ -2,18 +2,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-
 //Loading custom functions
 const { load_index, search_item , update_item, delete_item, add_item} = require('./app.js');
 
-//Setting the right port (hosted or localhost:3000)
+//Starting express
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 
 //Location of public files i.e. CSS, JS etc.
 app.use("/public", express.static(__dirname + '/public'));
-
 app.use(express.json());
 
 //Homepage
@@ -26,7 +24,7 @@ app.get('/search_results/', function(req,res) {
   res.sendFile(__dirname + '/routes/index.html');
 });
 
-//Individual assets page
+//Individual (unique) results page (click through from search results)
 app.get('/search_results/unique/', function(req,res) {
   res.sendFile(__dirname + '/routes/search-result.html');
 });

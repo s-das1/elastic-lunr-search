@@ -1,12 +1,24 @@
 //Sets urls
-function setUrl() {
-    const urlObj = 
+function setBaseUrl() {
+const urlObj = 
     {
         "cloud9": "https://c19814fb3a47419f917cff32b3fd56f9.vfs.cloud9.eu-west-1.amazonaws.com",
         "local": "http://localhost:3000",
         "heroku":"https://vast-taiga-95666.herokuapp.com"
     };
     return urlObj['local'] //This value should be set as appropriate during deployment
+}
+
+function setApiUrl(apiType) {
+    const apiUrlObj = 
+    {
+        "GET_search_url": "/search_results/api/v1/?search=",
+        "GET_unique_results_url": "/search_results/unique/?search=",
+        "POST_update_url": "/search_results/api/v1/update/",
+        "POST_delete_url": "/search_results/api/v1/delete/",
+        "POST_add_url": "/search_results/api/v1/add/"
+    };
+    return apiUrlObj[apiType]
 }
 
 //Gets the term being searched 
@@ -17,20 +29,30 @@ function getSearchTerm() {
 
 //Forms API call
 function formApiUrl(query) {
-    return setUrl() + '/search_results/api/v1/?search=' + query;
+    return setBaseUrl() + setApiUrl('GET_search_url') + query;
 }
 
 //Forms url to individual results page
 function formUniqueResultsUrl(query) {
-    return setUrl() + '/search_results/unique/?search=' + query;
+    return setBaseUrl() + setApiUrl('GET_unique_results_url') + query;
 }
 
-//Forms url to update results page
+//Forms url to update individual items
 function formUpdateUrl() {
-    return setUrl() + 'search_results/api/v1/update/';
+    return setBaseUrl() + setApiUrl('POST_update_url');
 }
 
-//JS to run on Index page
+//Forms url to delete individual items
+function formDeleteUrl() {
+    return setBaseUrl() + setApiUrl('POST_delete_url');
+}
+
+//Forms url to add individual items
+function formAddUrl() {
+    return setBaseUrl() + setApiUrl('POST_add_url');
+}
+
+//JS to run on load of the index page
 function indexPage() {
     if (getSearchTerm() != null) {
         //Setting the search term and setting it to the search box (required as a new page has been opened)
@@ -69,7 +91,7 @@ function indexPage() {
 
 //JS to run on search-results page
 function searchresultPage() {
-    if (getSearchTerm() != null) {
+    if (getSearchTerm() != 'undefined') {
 
         fetch(formApiUrl(getSearchTerm()))
             .then(data => {
@@ -77,6 +99,8 @@ function searchresultPage() {
             })
             .then(res => {
                 if (res.length != 0) {
+                    document.getElementById('delete_button').style.visibility = 'visible';
+
                     document.getElementById('results_page_header_id').innerHTML = res[0].Asset;
                     document.getElementById('asset_id').innerHTML = res[0].Asset;
                     document.getElementById('owner_id').innerHTML = res[0].Owner;
@@ -85,10 +109,27 @@ function searchresultPage() {
                     document.getElementById('tags_id').innerHTML = res[0].Tags;
                 }
             })
+    } else {
+        document.getElementById('results_page_header_id').innerHTML = 'Create new item';
+        document.getElementById('delete_button').style.visibility = 'hidden';
     }
 }
 
+//Sends the updated or new JSON object to server. Basis for differentiation between update and new is the url query field
+function searchresultPage_Update() {
+    if (getSearchTerm() != 'undefined') {
+        searchresultPage_UpdateDelete(formUpdateUrl());
+    } else {
+        searchresultPage_UpdateDelete(formAddUrl());
+    }    
+}
 
+//Sends the JSON object to server for deletion
+function searchresultPage_Delete(){
+    searchresultPage_UpdateDelete(formDeleteUrl());
+}
+
+//Function that runs on click of the update button, either updating an item or creating a new item
 function searchresultPage_UpdateDelete(url) {
     
     if (getSearchTerm() != 'undefined') {
@@ -140,18 +181,7 @@ function searchresultPage_UpdateDelete(url) {
     }
 }
 
-function searchresultPage_Update() {
-    if (getSearchTerm() != 'undefined') {
-        searchresultPage_UpdateDelete('http://localhost:3000/search_results/api/v1/update/');
-    } else {
-        searchresultPage_UpdateDelete('http://localhost:3000/search_results/api/v1/add/');
-    }
-    
-}
 
-function searchresultPage_Delete(){
-    searchresultPage_UpdateDelete('http://localhost:3000/search_results/api/v1/delete/');
-}
 
 
 

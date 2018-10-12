@@ -1,32 +1,34 @@
 const elasticlunr = require('elasticlunr');
 const fs = require('fs');
-var index; //Index data for elsticlunr searh
+let index;
 
-//Load index
+//Loads search index
 function load_index() {
-    var indexDump = JSON.parse(fs.readFileSync('datasets/search_index.json'));
+    const indexDump = JSON.parse(fs.readFileSync('datasets/search_index.json'));
     index = elasticlunr.Index.load(indexDump);
 }
 
+//Saves a new index after an update
 function save_index(new_index) {
     fs.writeFile('datasets/search_index.json', JSON.stringify(new_index), function (err) {
         if (err) throw err;
         console.log('Index update failed');
     });
 }
-//Search
+
 function search_item(keyword) {
-    var max_search_result = 10;
-    var search_result_summary = index.search(keyword, {});
-    var search_result_JSON = [];
+    const max_search_result = 10;
+    //Performs and stores results (only ID and relevenace is returned by the .search API)
+    const search_result_summary = index.search(keyword, {}); 
+    let search_result_JSON = [];
     
-    for (var i = 0; i < Math.min(search_result_summary.length, max_search_result); i++) {
+    //Gets details for each relevant search item, limited to the max number of search results
+    for (let i = 0; i < Math.min(search_result_summary.length, max_search_result); i++) {
         //Push results to new JSON array
         search_result_JSON.push(index.documentStore.getDoc(search_result_summary[i].ref));
     }
     return search_result_JSON;
 }
-
 
 function update_item(updated_json = {}) {
     load_index();

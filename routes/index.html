@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="/public/js/scripts.js" type="text/javascript"></script>
 </head>
 
@@ -12,8 +13,8 @@
             <h1>Asset search</h1>
             <div class="search">
                 <input class="search_box" type="text" id="search_box_id" name="search">
-                <button class="button button1" type="submit" id="search_button">Search</button>
-                <button class="button button1" type="button" id="add_button" onclick="location.href=formUniqueResultsUrl()">+</button>
+                <button class="button button1" type="submit" id="search_button"><i class="fa fa-search"></i></button>
+                <button class="button button4" type="button" id="add_button" onclick="location.href=formUniqueResultsUrl()"><i class="fa fa-plus"></i></button>
             </div>
         </form>
         <h2 id="Search_results_header"></h2>
@@ -24,7 +25,6 @@
 
     <script>
         indexPage();
-        setUrl('local');
     </script>
     
 </body>
