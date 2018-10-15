@@ -6,7 +6,7 @@ const urlObj =
         "local": "http://localhost:3000",
         "heroku":"https://vast-taiga-95666.herokuapp.com"
     };
-    return urlObj['heroku'] //This value should be set as appropriate during deployment
+    return urlObj['local'] //This value should be set as appropriate during deployment
 }
 
 function setApiUrl(apiType) {
@@ -53,62 +53,54 @@ function formAddUrl() {
 }
 
 //JS to run on load of the index page
-function indexPage() {
+async function indexPage() {
     if (getSearchTerm() != null) {
-        //Setting the search term and setting it to the search box (required as a new page has been opened)
-        //Then fetching the search term via the API
         document.getElementById('search_box_id').value = getSearchTerm();
-        fetch(formApiUrl(getSearchTerm()))
-            .then(data => {
-                return data.json()
-            })
-            .then(res => {
-                if (res.length === 0) {
-                    //This is needed to ensure that there is an empty div nested in the search results class, 
-                    //otherwise follow on searches don't have a div to be inputted into
-                    const div = document.createElement('div');
-                    div.id = 'search_results_section_id';
-                    div.innerHTML = '';
-                    document.getElementById('search_results_id').appendChild(div);
-                    document.getElementById("Search_results_header").innerHTML = "0 results found";
-                } else {
-                    //Iteratively adding each div to the search results
-                    document.getElementById("Search_results_header").innerHTML = res.length + " results found";
-                    for (let i = 0; i < res.length; i++) {
-                        const div = document.createElement('div');
-                        div.className = 'search_results_section';
-                        div.id = 'search_results_section_id';
-                        div.innerHTML = '<p1> <a href="' + formUniqueResultsUrl(res[i].Asset) + '"> <strong>' + res[i].Asset + '</strong> </a></p1>\
-                                                <p> <strong>Owner:</strong> ' + res[i].Owner + '</p>\
-                                                <p> <strong>Status:</strong> ' + res[i].Status + '</p>\
-                                                <p> <strong>Description:</strong> ' + res[i].Description + '</p>';
-                        document.getElementById('search_results_id').appendChild(div);
-                    }
-                }
-            })
+        let response = await fetch(formApiUrl(getSearchTerm()));
+        // only proceed once promise is resolved
+        let res = await response.json();
+        
+        if (res.length === 0) {
+            //This is needed to ensure that there is an empty div nested in the search results class, 
+            //otherwise follow on searches don't have a div to be inputted into
+            let div = document.createElement('div');
+            div.id = 'search_results_section_id';
+            div.innerHTML = '';
+            document.getElementById('search_results_id').appendChild(div);
+            document.getElementById("Search_results_header").innerHTML = "0 results found";
+        } else {
+            //Iteratively adding each div to the search results
+            document.getElementById("Search_results_header").innerHTML = res.length + " results found";
+            for (let i = 0; i < res.length; i++) {
+                let div = document.createElement('div');
+                div.className = 'search_results_section';
+                div.id = 'search_results_section_id';
+                div.innerHTML = '<p1> <a href="' + formUniqueResultsUrl(res[i].Asset) + '"> <strong>' + res[i].Asset + '</strong> </a></p1>\
+                                 <p> <strong>Owner:</strong> ' + res[i].Owner + '</p>\
+                                 <p> <strong>Status:</strong> ' + res[i].Status + '</p>\
+                                 <p> <strong>Description:</strong> ' + res[i].Description + '</p>';
+                document.getElementById('search_results_id').appendChild(div);
+            }
+        }
     }
 }
 
 //JS to run on search-results page
-function searchresultPage() {
+async function searchresultPage() {
     if (getSearchTerm() != 'undefined') {
 
-        fetch(formApiUrl(getSearchTerm()))
-            .then(data => {
-                return data.json()
-            })
-            .then(res => {
-                if (res.length != 0) {
-                    document.getElementById('delete_button').style.visibility = 'visible';
+        let response = await fetch(formApiUrl(getSearchTerm()));
+        let res = await response.json();
+        if (res.length != 0) {
+            document.getElementById('delete_button').style.visibility = 'visible';
 
-                    document.getElementById('results_page_header_id').innerHTML = res[0].Asset;
-                    document.getElementById('asset_id').innerHTML = res[0].Asset;
-                    document.getElementById('owner_id').innerHTML = res[0].Owner;
-                    document.getElementById('description_id').innerHTML = res[0].Description;
-                    document.getElementById('status_id').innerHTML = res[0].Status;
-                    document.getElementById('tags_id').innerHTML = res[0].Tags;
-                }
-            })
+            document.getElementById('results_page_header_id').innerHTML = res[0].Asset;
+            document.getElementById('asset_id').innerHTML = res[0].Asset;
+            document.getElementById('owner_id').innerHTML = res[0].Owner;
+            document.getElementById('description_id').innerHTML = res[0].Description;
+            document.getElementById('status_id').innerHTML = res[0].Status;
+            document.getElementById('tags_id').innerHTML = res[0].Tags;
+        }
     } else {
         document.getElementById('results_page_header_id').innerHTML = 'Create new item';
         document.getElementById('delete_button').style.visibility = 'hidden';
@@ -159,6 +151,8 @@ function searchresultPage_UpdateDelete(url) {
                   }).then(res => res.json())
                   .then(response => alert('Successfully updated'))
                   .catch(error => alert('Request failed'));
+
+                  location.href=setBaseUrl();
             })
     } else { //Create item
         const doc = {
@@ -178,10 +172,9 @@ function searchresultPage_UpdateDelete(url) {
           }).then(res => res.json())
           .then(response => alert('Successfully updated'))
           .catch(error => alert('Request failed'));
+
+          location.href=setBaseUrl();
     }
+    
 }
-
-
-
-
 

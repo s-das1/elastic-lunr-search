@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 //Loading custom functions
-const { load_index, search_item , update_item, delete_item, add_item} = require('./app.js');
+const { load_index, search_item , change_item} = require('./app.js');
 
 //Starting express
 const app = express();
@@ -44,21 +44,21 @@ app.get('/search_results/api/v1/', function(req,res) {
 //Post request url to update item
 app.post('/search_results/api/v1/update/', function(req, res) {
   const postBody = req.body;
-  update_item(postBody);
+  change_item(postBody, 'update');
   res.send(postBody);
 });
 
 //Post request url to delete item
 app.post('/search_results/api/v1/delete/', function(req, res) {
   const postBody = req.body;
-  delete_item(postBody);
+  change_item(postBody, 'delete');
   res.send(postBody);
 });
 
 //Post request url to add item
 app.post('/search_results/api/v1/add/', function(req, res) {
   const postBody = req.body;
-  add_item(postBody);
+  change_item(postBody, 'add');
   res.send(postBody);
 });
 

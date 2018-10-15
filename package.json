@@ -13,6 +13,7 @@
     "body-parser": "^1.18.3",
     "csv-array": "0.0.22",
     "elasticlunr": "^0.9.5",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "lodash": "^4.17.11"
   }
 }
